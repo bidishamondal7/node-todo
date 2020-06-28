@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <link rel="stylesheet" href="/styleSheet/style.css" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="todo-container">
+        <h1>My TODOs</h1>
+        <div id="add-todo">
+            <form action="/" method="post">
+                <input type="text" placeholder="Add task" name="newtask"/>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div id="active-tasks">
+            <% todos.forEach(task =>{%>
+                <%if(task._id == idTask) {%>
+                    <p> <form action="/edit/<%=task._id%>" method="POST">
+                   <input type="text" value="<%=task.task%>" name="edit_task">
+                   <input type="date" value="<%=task.completion_date %>" name="edit_completion_date">
+                    <button>confirm</button>
+                    <a href="/" class="cancel">Cancel</a>
+                </form>
+            </p>
+                <%} else {%>
+                <p id="task_list" ><%= task.task%>
+                <a href="/edit/<%= task._id %>" class="edit">
+                    <span class="fas fa-edit"></span>
+                    </a>
+                    <a href="/remove/<%= task._id %>" class="remove">
+                    <span class="fas fa-times"></span>
+                    </a>
+                </p>
+           <% }%>
+            <%})%>
+        </div>
+    </div>
+  
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <link rel="stylesheet" href="/styleSheet/style.css" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="todo-container">
+        <h1>My TODOs</h1>
+        <div id="add-todo">
+            <form action="/" method="post">
+                <input type="text" placeholder="Add task" name="newtask"/>
+                <input type="date" name="enter_date"/>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div id="active-tasks">
+            <% todos.forEach(task =>{%>
+                <% if(task.task_status === false) {%>
+                <p id="task_list" >
+                    <%= task.task%>&nbsp;<%=task.completion_date%>
+                <a href="/edit/<%= task._id %>" class="edit">
+                    <span class="fas fa-edit"></span>
+                    </a>
+                    <a href="/remove/<%= task._id %>" class="remove">
+                    <span class="fas fa-times"></span>
+                    </a>
+                   
+                    <a href="/done/<%= task._id %>" class="done">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </a>
+               
+                </p>
+                <%}})%>
+        </div>
+      
+        <hr>
+        <div id="done-task"> 
+        
+            <% todos.forEach(task =>{%>
+                <% if(task.task_status === true) {%>
+                <p id="done_task_list" >
+                    <%= task.task%>&nbsp;<%=task.completion_date%>
+                <a href="/edit/<%= task._id %>" class="edit">
+                    <span class="fas fa-edit"></span>
+                    </a>
+                    <a href="/remove/<%= task._id %>" class="remove">
+                    <span class="fas fa-times"></span>
+                    </a>
+                    <a href="/done/<%= task._id %>" class="done">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </a>
+                </p>
+            <%}})%>
+            
+        </div>
+    </div>
+  
+
+</body>
+</html>

@@ -15,11 +15,13 @@
         <div id="add-todo">
             <form action="/" method="post">
                 <input type="text" placeholder="Add task" name="newtask"/>
+                <input type="date" name="enter_date"/>
                 <button>Submit</button>
             </form>
         </div>
         <div id="active-tasks">
             <% todos.forEach(task =>{%>
+                <% if(task.task_status === false){%>
                 <%if(task._id == idTask) {%>
                     <p> <form action="/edit/<%=task._id%>" method="POST">
                    <input type="text" value="<%=task.task%>" name="edit_task">
@@ -27,7 +29,7 @@
                     <button>confirm</button>
                     <a href="/" class="cancel">Cancel</a>
                 </form>
-            </p>
+                </p>
                 <%} else {%>
                 <p id="task_list" ><%= task.task%>
                 <a href="/edit/<%= task._id %>" class="edit">
@@ -36,9 +38,45 @@
                     <a href="/remove/<%= task._id %>" class="remove">
                     <span class="fas fa-times"></span>
                     </a>
+                    <a href="/undone/<%= task._id %>" class="undone">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </a>
+                  
+
                 </p>
            <% }%>
-            <%})%>
+            <%}})%>
+        </div>
+        <hr>
+        <div id="done-tasks">
+
+            <%todos.forEach(task => {%>
+                <% if(task.task_status === true){%>
+                    <%if(task._id == idTask) {%>
+                        <p> <form action="/edit/<%=task._id%>" method="POST">
+                       <input type="text" value="<%=task.task%>" name="edit_task">
+                       <input type="date" value="<%=task.completion_date %>" name="edit_completion_date">
+                        <button>confirm</button>
+                        <a href="/" class="cancel">Cancel</a>
+                    </form>
+                    </p>
+                    <%} else {%>
+                        <p id="task_list" ><%= task.task%>
+                        <a href="/edit/<%= task._id %>" class="edit">
+                            <span class="fas fa-edit"></span>
+                            </a>
+                            <a href="/remove/<%= task._id %>" class="remove">
+                            <span class="fas fa-times"></span>
+                            </a>
+                            <a href="/done/<%= task._id %>" class="done">
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            </a>
+                          
+        
+                        </p>
+                   <% }%>
+
+            <%}})%>
         </div>
     </div>
   

@@ -7,12 +7,12 @@ const todoSchema = new Schema({
         required : true
     },
     completion_date : {
-        type: Date,
+        type: Date
         
     },
     task_status:{
         type : Boolean
-        // default : false
+      
     },
         date:{
             type : Date,

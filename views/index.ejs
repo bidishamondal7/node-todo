@@ -7,57 +7,81 @@
 
     <link rel="stylesheet" href="/styleSheet/style.css" type="text/css">
     <title>Document</title>
+    
 </head>
 <body>
     
     <div id="todo-container">
-        <h1>My TODOs</h1>
+        <h1>My Todos</h1>
+        <h2>Today's task</h2>
+        <% todos.forEach(task =>{%>
+        <% if(task.task_status === false){%>
+                    
+            <%var d = task.completion_date;%>
+            <%var date1 = d.getDate();%>
+            <%var month1 = d.getMonth() + 1;%> 
+            <%var year1 = d.getFullYear();%>
+
+            <%var today = new Date();%>
+            <%var date2 = today.getDate();%>
+            <%var month2 = today.getMonth() + 1;%> 
+            <%var year2 = today.getFullYear();%>
+             
+            
+            <%var dateStr1 = date1 + "/" + month1 + "/" + year1;%>
+            <%var dateStr2 = date2 + "/" + month2 + "/" + year2;%>
+            <%if(dateStr1 === dateStr2){%>
+                <p><b><%=task.task%> to be done today</b></p>
+            
+
+            <%} console.log(dateStr1);%>
+        <%}})%>
         <div id="add-todo">
             <form action="/" method="post">
-                <input type="text" placeholder="Add task" name="newtask"/>
-                <input type="date" name="enter_date"/>
-                <button>Submit</button>
+            <input type="text" placeholder="Add Task" name="newtask" />
+            <input type="date" name="enter_date"/> 
+            <button>Submit</button>
             </form>
         </div>
+       
+        <!-- <div id="notification">
+            <button onClick='noti()'>Notification</button>
+        </div> -->
         <div id="active-tasks">
+            
             <% todos.forEach(task =>{%>
-                <% if(task.task_status === false) {%>
-                <p id="task_list" >
-                    <%= task.task%>&nbsp;<%=task.completion_date%>
+                <% if(task.task_status === false){%>
+                        
+            <p id="task_list" ><%=task.task%>&nbsp;<%=task.completion_date%>
                 <a href="/edit/<%= task._id %>" class="edit">
                     <span class="fas fa-edit"></span>
                     </a>
                     <a href="/remove/<%= task._id %>" class="remove">
                     <span class="fas fa-times"></span>
                     </a>
-                   
-                    <a href="/done/<%= task._id %>" class="done">
+                    <a href="/undone/<%= task._id %>" class="undone">
                         <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                     </a>
+                </p>
+           <%}})%>
+            </div>
+            <hr>
+            <div id="done-tasks">
+           <% todos.forEach(task =>{%>
+            <% if(task.task_status === true){%>
+            <p id="task_list" ><%=task.task%>&nbsp;<%=task.completion_date%>
+            <a href="/edit/<%= task._id %>" class="edit">
+                <span class="fas fa-edit"></span>
+                </a>
+                <a href="/remove/<%= task._id %>" class="remove">
+                <span class="fas fa-times"></span>
+                </a>
                
-                </p>
-                <%}})%>
-        </div>
-      
-        <hr>
-        <div id="done-task"> 
-        
-            <% todos.forEach(task =>{%>
-                <% if(task.task_status === true) {%>
-                <p id="done_task_list" >
-                    <%= task.task%>&nbsp;<%=task.completion_date%>
-                <a href="/edit/<%= task._id %>" class="edit">
-                    <span class="fas fa-edit"></span>
-                    </a>
-                    <a href="/remove/<%= task._id %>" class="remove">
-                    <span class="fas fa-times"></span>
-                    </a>
-                    <a href="/done/<%= task._id %>" class="done">
-                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    </a>
-                </p>
-            <%}})%>
-            
+                <a href="/done/<%= task._id %>" class="done">
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </a>
+            </p>
+           <%}})%>
         </div>
     </div>
   

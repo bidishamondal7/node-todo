@@ -50,8 +50,18 @@ app.route('/done/:id')
 .get((req,res) => {
     const id= req.params.id
     todos.findByIdAndUpdate({_id : id},{
-        task_status : true
+        task_status : false
     } ,err =>{
+        if(err) res.send(500,err)
+        res.redirect('/')
+    })
+})
+app.route('/undone/:id')
+.get((req,res) => {
+    const id = req.params.id
+    todos.findByIdAndUpdate({_id: id},{
+        task_status : true
+    }, err =>{
         if(err) res.send(500,err)
         res.redirect('/')
     })
@@ -61,9 +71,9 @@ app.route('/done/:id')
 app.get('/',function(req,res){
     // res.send('connected')
    
-    todos.find({},(err, tasks) => {
-        console.log(tasks);
-        res.render('index.ejs',{todos : tasks})
+    todos.find({},(err, task) => {
+        console.log(task);
+        res.render("index.ejs",{todos : task})
     })
 })
 app.post('/',async(req,res) =>{
@@ -85,5 +95,6 @@ app.post('/',async(req,res) =>{
  }
    
 })
+
 
 
